@@ -48,3 +48,27 @@ def ask_challenge(request):
         form = ChallengeForm()
         
     return render(request, 'qanda/ask_challenge.html', {'form': form})
+
+@login_required(login_url='/admin/login/')
+def vote_solution(request, solution_id, value):
+    # Security check: Ensure we only accept POST requests to change data
+    if request.method == 'POST':
+        solution = get_object_or_404(Solution, id=solution_id)
+        
+        # Check if this user has already voted on this specific solution
+        existing_vote = Vote.objects.filter(user=request.user, solution=solution).first()
+        
+        if existing_vote:
+            if existing_vote.value == value:
+                # Toggle off: If they clicked the same button again, delete their vote
+                existing_vote.delete()
+            else:
+                # Change mind: If they went from +1 to -1 (or vice versa), update it
+                existing_vote.value = value
+                existing_vote.save()
+        else:
+            # Brand new vote
+            Vote.objects.create(user=request.user, solution=solution, value=value)
+            
+    # Send them right back to the question page they were looking at
+    return redirect(request.META.get('HTTP_REFERER', '/'))

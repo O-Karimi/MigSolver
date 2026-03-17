@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.db.models import Sum
 from basics.models import Category
 
 class Challenge(models.Model):
@@ -26,20 +27,19 @@ class Solution(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     is_accepted = models.BooleanField(default=False)
     
-    author = models.ForeignKey(
-        settings.AUTH_USER_MODEL, 
-        on_delete=models.CASCADE, 
-        related_name='solutions'
-    )
-    challenge = models.ForeignKey(
-        Challenge, 
-        on_delete=models.CASCADE, 
-        related_name='solutions'
-    )
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='solutions')
+    challenge = models.ForeignKey(Challenge, on_delete=models.CASCADE, related_name='solutions')
+
+    # NEW: The scoring math
+    @property
+    def vote_score(self):
+        # Asks the database to sum up the 'value' column of all attached votes
+        total = self.votes.aggregate(Sum('value'))['value__sum']
+        return total if total is not None else 0
 
     def __str__(self):
         return f"Solution by {self.author} on {self.challenge.title}"
-
+    
 class Vote(models.Model):
     value = models.SmallIntegerField(help_text="+1 for upvote, -1 for downvote")
     

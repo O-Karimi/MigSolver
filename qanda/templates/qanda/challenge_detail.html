@@ -49,7 +49,22 @@
                 {% endif %}
             </div>
             
-            <p>{{ solution.body|linebreaks }}</p>
+            <p>{{ solution.body }}</p>
+                    
+                <div style="margin-top: 15px; display: flex; align-items: center; gap: 10px;">
+                    <strong style="font-size: 1.2em; color: #2d3748;">Score: {{ solution.vote_score }}</strong>
+                    
+                    <form action="{% url 'qanda:vote_solution' solution.id 1 %}" method="POST" style="margin: 0;">
+                        {% csrf_token %}
+                        <button type="submit" style="background: #edf2f7; border: 1px solid #cbd5e0; padding: 5px 10px; border-radius: 4px; cursor: pointer;">👍 Upvote</button>
+                    </form>
+                    
+                    <form action="{% url 'qanda:vote_solution' solution.id -1 %}" method="POST" style="margin: 0;">
+                        {% csrf_token %}
+                        <button type="submit" style="background: #edf2f7; border: 1px solid #cbd5e0; padding: 5px 10px; border-radius: 4px; cursor: pointer;">👎 Downvote</button>
+                    </form>
+                </div>
+            </div>
         </div>
     {% empty %}
         <p>No solutions yet. Be the first to help out!</p>
