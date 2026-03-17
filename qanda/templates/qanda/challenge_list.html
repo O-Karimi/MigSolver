@@ -22,8 +22,9 @@
     {% if challenges %}
         {% for challenge in challenges %}
             <div class="challenge-card">
-                <h2 class="challenge-title">{{ challenge.title }}</h2>
-                
+                <h2 class="challenge-title">
+                    <a href="{% url 'qanda:challenge_detail' challenge.id %}">{{ challenge.title }}</a>
+                </h2>                
                 <div class="meta">
                     Asked by <strong>{{ challenge.author.username }}</strong> on {{ challenge.created_at|date:"M d, Y" }}
                     {% if challenge.is_solved %}

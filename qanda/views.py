@@ -1,14 +1,22 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Challenge
 
 def challenge_list(request):
-    # Grab all challenges from the database, ordered by newest first
     challenges = Challenge.objects.all().order_by('-created_at')
+    context = {'challenges': challenges}
+    return render(request, 'qanda/challenge_list.html', context)
+
+def challenge_detail(request, challenge_id):
+    # Fetch the specific challenge, or throw a 404 error if it doesn't exist
+    challenge = get_object_or_404(Challenge, id=challenge_id)
     
-    # Package them up in a dictionary so our HTML can read them
+    # Fetch all solutions linked to this challenge. 
+    # We order by '-is_accepted' to push the correct answer to the top!
+    solutions = challenge.solutions.all().order_by('-is_accepted', '-created_at')
+    
     context = {
-        'challenges': challenges
+        'challenge': challenge,
+        'solutions': solutions,
     }
     
-    # Send the data to an HTML template (we will build this next!)
-    return render(request, 'qanda/challenge_list.html', context)
+    return render(request, 'qanda/challenge_detail.html', context)

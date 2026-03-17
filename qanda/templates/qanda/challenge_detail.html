@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ challenge.title }} - MigSolver</title>
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.6; color: #333; }
+        h1, h2 { color: #2c3e50; }
+        .question-box { border: 2px solid #3182ce; padding: 25px; border-radius: 8px; margin-bottom: 30px; }
+        .solution-box { border: 1px solid #e2e8f0; padding: 20px; border-radius: 8px; margin-bottom: 15px; background: #f8fafc; }
+        .accepted { border-color: #48bb78; background: #f0fff4; border-width: 2px; }
+        .tag { background: #edf2f7; color: #4a5568; padding: 4px 10px; border-radius: 15px; font-size: 0.85em; margin-right: 5px; font-weight: bold; }
+        .meta { color: #718096; font-size: 0.9em; margin-bottom: 15px; }
+        a { color: #3182ce; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .back-link { display: inline-block; margin-bottom: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <a href="{% url 'qanda:challenge_list' %}" class="back-link">&larr; Back to all challenges</a>
+
+    <div class="question-box">
+        <h1 style="margin-top: 0;">{{ challenge.title }}</h1>
+        
+        <div class="meta">
+            Asked by <strong>{{ challenge.author.username }}</strong> on {{ challenge.created_at|date:"M d, Y" }}
+        </div>
+        
+        <p>{{ challenge.body|linebreaks }}</p>
+        
+        <div style="margin-top: 20px;">
+            {% for category in challenge.categories.all %}
+                <span class="tag">{{ category.name }}</span>
+            {% endfor %}
+        </div>
+    </div>
+
+    <h2>Solutions ({{ solutions.count }})</h2>
+
+    {% for solution in solutions %}
+        <div class="solution-box {% if solution.is_accepted %}accepted{% endif %}">
+            <div class="meta">
+                <strong>{{ solution.author.username }}</strong> replied on {{ solution.created_at|date:"M d, Y" }}
+                
+                {% if solution.is_accepted %}
+                    <span style="color: #48bb78; font-weight: bold; margin-left: 10px;">✓ Accepted Solution</span>
+                {% endif %}
+            </div>
+            
+            <p>{{ solution.body|linebreaks }}</p>
+        </div>
+    {% empty %}
+        <p>No solutions yet. Be the first to help out!</p>
+    {% endfor %}
+
+</body>
+</html>
