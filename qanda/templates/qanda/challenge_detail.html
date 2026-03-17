@@ -54,6 +54,13 @@
     {% empty %}
         <p>No solutions yet. Be the first to help out!</p>
     {% endfor %}
-
+    <div style="margin-top: 40px; padding-top: 20px; border-top: 2px dashed #cbd5e0;">
+        <h3>Submit a Solution</h3>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" style="background: #48bb78; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">Post Solution</button>
+        </form>
+    </div>
 </body>
 </html>
