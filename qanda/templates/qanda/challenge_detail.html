@@ -37,9 +37,9 @@
         </div>
     </div>
 
-    <h2>Solutions ({{ solutions.count }})</h2>
+    <h2>Solutions ({{ challenge.solutions.count }})</h2>
 
-    {% for solution in solutions %}
+    {% for solution in challenge.solutions.all %}
         <div class="solution-box {% if solution.is_accepted %}accepted{% endif %}">
             <div class="meta">
                 <strong>{{ solution.author.username }}</strong> replied on {{ solution.created_at|date:"M d, Y" }}

@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Challenge
+from .models import Challenge, Solution, Vote
 from .forms import ChallengeForm, SolutionForm
 
 def challenge_list(request):
@@ -52,8 +52,10 @@ def ask_challenge(request):
 @login_required(login_url='/admin/login/')
 def vote_solution(request, solution_id, value):
     # Security check: Ensure we only accept POST requests to change data
+    value = int(value)  # Convert the string from the URL to an integer
+    
     if request.method == 'POST':
-        solution = get_object_or_404(Solution, id=solution_id)
+        solution = get_object_or_404(Solution.objects.filter(id=solution_id))
         
         # Check if this user has already voted on this specific solution
         existing_vote = Vote.objects.filter(user=request.user, solution=solution).first()
