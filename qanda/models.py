@@ -30,6 +30,8 @@ class Solution(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='solutions')
     challenge = models.ForeignKey(Challenge, on_delete=models.CASCADE, related_name='solutions')
 
+    class Meta:
+        ordering = ['-is_accepted', '-created_at']  # New: Sort solutions by newest first
     # NEW: The scoring math
     @property
     def vote_score(self):
