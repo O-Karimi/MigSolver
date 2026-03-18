@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MigSolver Wiki - Official Guides</title>
+    <style>
+        body { font-family: system-ui, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.6; color: #333; }
+        .article-card { border: 1px solid #e2e8f0; padding: 20px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #805ad5; }
+        .tag { background: #edf2f7; color: #4a5568; padding: 4px 10px; border-radius: 15px; font-size: 0.85em; margin-right: 5px; font-weight: bold; }
+        .meta { color: #718096; font-size: 0.9em; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h1>MigSolver Knowledge Base</h1>
+        <a href="{% url 'qanda:challenge_list' %}" style="color: #3182ce; font-weight: bold; text-decoration: none;">Go to Q&A Forum →</a>
+    </div>
+    <p>Authoritative guides and verified immigration rules.</p>
+    <hr style="border: 0; border-top: 1px solid #e2e8f0; margin-bottom: 30px;">
+
+    {% for article in articles %}
+        <div class="article-card">
+            <h2 style="margin-top: 0; color: #805ad5;">
+                <a href="{% url 'wiki:article_detail' article.id %}" style="text-decoration: none; color: inherit;">
+                    {{ article.title }}
+                </a>
+            </h2>
+            <div class="meta">Last updated: {{ article.last_updated|date:"M d, Y" }}</div>
+            <p>{{ article.content|truncatewords:30 }}</p>
+            
+            <div style="margin-top: 15px;">
+                {% for category in article.categories.all %}
+                    <span class="tag">{{ category.name }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    {% empty %}
+        <p>No wiki articles have been published yet.</p>
+    {% endfor %}
+</body>
+</html>
