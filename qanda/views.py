@@ -1,7 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.db.models import Sum
+from django.utils.text import slugify
+from django.db.models.functions import Coalesce
 from .models import Challenge, Solution, Vote
 from .forms import ChallengeForm, SolutionForm
+from basics.models import Category
 
 def challenge_list(request):
     challenges = Challenge.objects.all().order_by('-created_at')
@@ -11,6 +15,11 @@ def challenge_list(request):
 def challenge_detail(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
     
+
+    solutions = challenge.solutions.annotate(
+        total_votes=Coalesce(Sum('votes__value'), 0)
+    ).order_by('-is_accepted', '-total_votes', '-created_at')
+
     # Handle the Solution Form submission
     if request.method == 'POST':
         # If they aren't logged in, send them to the admin login page for now
@@ -29,6 +38,7 @@ def challenge_detail(request, challenge_id):
 
     context = {
         'challenge': challenge,
+        'solutions': solutions,
         'form': form,
     }
     return render(request, 'qanda/challenge_detail.html', context)

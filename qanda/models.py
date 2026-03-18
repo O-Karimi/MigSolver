@@ -32,12 +32,6 @@ class Solution(models.Model):
 
     class Meta:
         ordering = ['-is_accepted', '-created_at']  # New: Sort solutions by newest first
-    # NEW: The scoring math
-    @property
-    def vote_score(self):
-        # Asks the database to sum up the 'value' column of all attached votes
-        total = self.votes.aggregate(Sum('value'))['value__sum']
-        return total if total is not None else 0
 
     def __str__(self):
         return f"Solution by {self.author} on {self.challenge.title}"
