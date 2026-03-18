@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MigSolver</title>
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; margin: 0; padding: 0; background-color: #f7fafc; color: #2d3748; }
+        
+        /* Global Navigation Bar */
+        .navbar { background-color: #2b6cb0; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .nav-brand { font-size: 1.5em; font-weight: bold; text-decoration: none; color: white; }
+        .nav-links a { color: #e2e8f0; text-decoration: none; margin-left: 20px; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: white; }
+        .nav-btn { background-color: #48bb78; padding: 8px 15px; border-radius: 5px; margin-left: 20px; color: white !important; font-weight: bold; }
+        
+        /* Master Container for all child pages */
+        .container { max-width: 900px; margin: 40px auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        
+        /* Global Element Styles */
+        h1, h2, h3 { color: #2c3e50; }
+        hr { border: 0; border-top: 1px solid #e2e8f0; margin: 20px 0; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="{% url 'qanda:challenge_list' %}" class="nav-brand">🌍 MigSolver</a>
+        <div class="nav-links">
+            <a href="{% url 'qanda:challenge_list' %}">Q&A Forum</a>
+            <a href="{% url 'wiki:article_list' %}">Knowledge Base</a>
+            
+            {% if user.is_authenticated %}
+                <span style="margin-left: 20px; color: #a0aec0;">Hi, {{ user.username }}</span>
+                {% if user.is_staff %}
+                    <a href="/admin/">Admin Panel</a>
+                {% endif %}
+            {% else %}
+                <a href="/admin/login/">Log In</a>
+            {% endif %}
+            
+            <a href="{% url 'qanda:ask_challenge' %}" class="nav-btn">+ Ask Question</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+</body>
+</html>

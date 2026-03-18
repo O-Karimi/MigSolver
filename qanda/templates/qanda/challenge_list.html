@@ -1,21 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MigSolver - Challenges</title>
-    <style>
-        body { font-family: system-ui, -apple-system, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.6; color: #333; }
-        h1 { color: #2c3e50; }
-        .challenge-card { border: 1px solid #e2e8f0; padding: 20px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .challenge-title { margin-top: 0; color: #3182ce; }
-        .tag { background: #edf2f7; color: #4a5568; padding: 4px 10px; border-radius: 15px; font-size: 0.85em; margin-right: 5px; font-weight: bold; }
-        .meta { color: #718096; font-size: 0.9em; margin-bottom: 10px; }
-    </style>
-</head>
-<body>
+{% extends "base.html" %}
 
-    <h1>MigSolver: Community Challenges</h1>
+{% block content %}
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h1>MigSolver: Community Challenges</h1>
+    </div>
     <p>Browse open immigration questions or help a peer out.</p>
     <a href="{% url 'qanda:ask_challenge' %}" style="display: inline-block; background: #3182ce; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-bottom: 20px;">+ Ask a Question</a>
     <hr style="border: 0; border-top: 1px solid #e2e8f0; margin-bottom: 30px;">
@@ -48,5 +36,4 @@
         </div>
     {% endif %}
 
-</body>
-</html>
+{% endblock %}

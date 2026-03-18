@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Ask a Question - MigSolver</title>
-    <style>
-        body { font-family: system-ui, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; color: #333; }
-        .form-box { background: #f8fafc; padding: 30px; border-radius: 8px; border: 1px solid #e2e8f0; }
-        button { background: #3182ce; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
-    </style>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
     <a href="{% url 'qanda:challenge_list' %}" style="color: #3182ce; text-decoration: none;">← Cancel and return</a>
     
     <h2>Ask the Community</h2>
@@ -18,5 +9,4 @@
             {% csrf_token %} {{ form.as_p }}  <button type="submit">Post Challenge</button>
         </form>
     </div>
-</body>
-</html>
+{% endblock %}

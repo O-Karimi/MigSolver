@@ -1,24 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ challenge.title }} - MigSolver</title>
-    <style>
-        body { font-family: system-ui, -apple-system, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.6; color: #333; }
-        h1, h2 { color: #2c3e50; }
-        .question-box { border: 2px solid #3182ce; padding: 25px; border-radius: 8px; margin-bottom: 30px; }
-        .solution-box { border: 1px solid #e2e8f0; padding: 20px; border-radius: 8px; margin-bottom: 15px; background: #f8fafc; }
-        .accepted { border-color: #48bb78; background: #f0fff4; border-width: 2px; }
-        .tag { background: #edf2f7; color: #4a5568; padding: 4px 10px; border-radius: 15px; font-size: 0.85em; margin-right: 5px; font-weight: bold; }
-        .meta { color: #718096; font-size: 0.9em; margin-bottom: 15px; }
-        a { color: #3182ce; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        .back-link { display: inline-block; margin-bottom: 20px; font-weight: bold; }
-    </style>
-</head>
-<body>
+{% extends "base.html" %}
 
+{% block content %}
     <a href="{% url 'qanda:challenge_list' %}" class="back-link">&larr; Back to all challenges</a>
 
     <div class="question-box">
@@ -77,5 +59,4 @@
             <button type="submit" style="background: #48bb78; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">Post Solution</button>
         </form>
     </div>
-</body>
-</html>
+{% endblock %}
