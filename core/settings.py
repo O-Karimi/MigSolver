@@ -122,3 +122,6 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 AUTH_USER_MODEL = 'basics.User'
+
+LOGIN_REDIRECT_URL = 'qanda:challenge_list'
+LOGOUT_REDIRECT_URL = 'pages:home'
