@@ -23,5 +23,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('wiki/', include('wiki.urls')),
     path('qanda/', include('qanda.urls')),
-    path('', include('qanda.urls')),
+    path('', include('pages.urls')),
 ]

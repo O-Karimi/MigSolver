@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "basics",
     "qanda",
     "wiki",
+    "pages",
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MigSolver - Navigate Immigration Together</title>
+    <style>
+        body { font-family: system-ui, sans-serif; margin: 0; padding: 0; background-color: #1a202c; color: white; text-align: center; }
+        .hero { padding: 100px 20px; }
+        .hero h1 { font-size: 3.5em; margin-bottom: 10px; color: #63b3ed; }
+        .hero p { font-size: 1.2em; max-width: 600px; margin: 0 auto 40px auto; color: #a0aec0; }
+        .btn-primary { background: #3182ce; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 1.1em; margin: 10px; display: inline-block; }
+        .btn-secondary { background: transparent; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 1.1em; border: 2px solid #4a5568; margin: 10px; display: inline-block; }
+        .btn-primary:hover { background: #2b6cb0; }
+        .btn-secondary:hover { border-color: #718096; }
+    </style>
+</head>
+<body>
+
+    <div class="hero">
+        <h1>Welcome to MigSolver</h1>
+        <p>The community-driven platform for navigating immigration. Ask questions, share your experiences, and read verified guides.</p>
+        
+        <div>
+            <a href="{% url 'qanda:challenge_list' %}" class="btn-primary">Enter Q&A Forum</a>
+            <a href="{% url 'wiki:article_list' %}" class="btn-secondary">Read the Wiki</a>
+        </div>
+    </div>
+
+</body>
+</html>
