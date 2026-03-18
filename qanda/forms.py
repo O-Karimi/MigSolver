@@ -2,6 +2,12 @@ from django import forms
 from .models import Challenge, Solution
 
 class ChallengeForm(forms.ModelForm):
+    new_categories = forms.CharField(
+            max_length=255,
+            required=False,
+            help_text="Can't find what you need? Add new categories separated by commas (e.g., 'Freelance, Health Insurance').",
+            widget=forms.TextInput(attrs={'style': 'width: 100%; padding: 8px; margin-bottom: 15px; border: 1px solid #cbd5e0; border-radius: 4px;'})
+    )
     class Meta:
         model = Challenge
         # We only want the user to fill out these three fields
