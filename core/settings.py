@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -125,3 +126,13 @@ AUTH_USER_MODEL = 'basics.User'
 
 LOGIN_REDIRECT_URL = 'qanda:challenge_list'
 LOGOUT_REDIRECT_URL = 'pages:home'
+
+import dj_database_url
+import os
+
+# If Render provides a database URL, use it!
+if 'DATABASE_URL' in os.environ:
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+
+# Tell Whitenoise where to put static files (like the Admin panel CSS)
+STATIC_ROOT = BASE_DIR / 'staticfiles'
