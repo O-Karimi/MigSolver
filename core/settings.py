@@ -25,7 +25,10 @@ SECRET_KEY = "django-insecure-lulg3$!h=c4oq_h-n&v1hp18m3cfn8$(u$0-_k(1pir&732sa@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localHost",
+    "migsolver.onrender.com",
+]
 
 
 # Application definition
